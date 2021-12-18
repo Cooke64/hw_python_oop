@@ -46,6 +46,7 @@ class Training:
                  ) -> None:
         self.action = action
         self.duration_in_hour = duration
+        #продолжительность тренировки в минутах
         self.weight = weight
 
         self.duration = duration
@@ -65,6 +66,8 @@ class Training:
     def get_spent_calories(self) -> float:
         """Getting spent calories"""
         pass
+        #Здесь должен быть NotimplementedError,
+        #Но я так и не понял,что это
 
     def show_training_info(self) -> InfoMessage:
         """Returning results about training season """
