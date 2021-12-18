@@ -46,19 +46,17 @@ class Training:
                  ) -> None:
         self.action = action
         self.duration_in_hour = duration
-        #продолжительность тренировки в минутах
+        # продолжительность тренировки в минутах
         self.weight = weight
 
         self.duration = duration
 
     def get_distance(self) -> float:
-
         """calculate distance"""
 
         return self.action * self.LEN_STEP / self.M_IN_KM
 
     def get_mean_speed(self) -> float:
-
         """Getting avg speed"""
 
         return self.get_distance() / self.duration
@@ -66,8 +64,8 @@ class Training:
     def get_spent_calories(self) -> float:
         """Getting spent calories"""
         pass
-        #Здесь должен быть NotimplementedError,
-        #Но я так и не понял,что это
+        # Здесь должен быть NotimplementedError,
+        # Но я так и не понял,что это
 
     def show_training_info(self) -> InfoMessage:
         """Returning results about training season """
@@ -97,7 +95,7 @@ class Running(Training):
         """Getting spent calories"""
 
         lost_weight = ((self.CONST_RUN_1 * self.get_mean_speed()
-                       - self.CONST_RUN_2) * self.weight)
+                        - self.CONST_RUN_2) * self.weight)
         cal = (lost_weight / self.M_IN_KM)
         return cal * (self.duration * self.min_in_hour)
 
@@ -119,7 +117,6 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
-
         time_in_min = self.duration * self.min_in_hour
 
         speed = self.get_mean_speed()
@@ -157,7 +154,6 @@ class Swimming(Training):
         return (self.length_pool * self.count_pool) / self.M_IN_KM / time
 
     def get_spent_calories(self) -> float:
-
         total = (self.get_mean_speed() + self.CONST_SWIM_1)
         return total * self.CONST_SWIM_2 * self.weight
 
