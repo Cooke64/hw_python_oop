@@ -93,12 +93,10 @@ class Running(Training):
     def get_spent_calories(self) -> float:
         """Getting spent calories"""
 
-        lost_weight = (self.CONST_RUN_1 * self.get_mean_speed() -
-                       self.CONST_RUN_2) * self.weight
-        cal = (lost_weight / self.M_IN_KM *
-               self.duration_in_hour_in_hour * self.min_in_hour)
-
-        return cal
+        lost_weight = ((self.CONST_RUN_1 * self.get_mean_speed()
+                       - self.CONST_RUN_2) * self.weight)
+        cal = (lost_weight / self.M_IN_KM)
+        return cal * (self.duration_in_hour_in_hour * self.min_in_hour)
 
 
 class SportsWalking(Training):
