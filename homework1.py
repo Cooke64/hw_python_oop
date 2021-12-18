@@ -10,7 +10,7 @@ class InfoMessage:
                  speed: float, calories: float) -> None:
         self.training_type: str = training_type
 
-        self.duration_in_hour: float = duration_in_hour
+        self.duration_in_hour_in_hour: float = duration_in_hour
 
         self.distance: float = distance
 
@@ -24,7 +24,7 @@ class InfoMessage:
 
             f'Тип тренировки: {self.training_type}; '
 
-            f'Длительность: {self.duration_in_hour:.3f} ч.; '
+            f'Длительность: {self.duration_in_hour_in_hour:.3f} ч.; '
 
             f'Дистанция: {self.distance:.3f} км; '
 
@@ -39,22 +39,25 @@ class Training:
     LEN_STEP: float = 0.65
     M_IN_KM: int = 1000
 
-    def __init__(self, action: int,
+    def __init__(self,
+                 action: int,
                  duration_in_hour: float,
                  weight: float
                  ) -> None:
         self.action = action
-        self.duration = duration_in_hour
+        self.duration_in_hour = duration_in_hour
         self.weight = weight
 
-        self.duration_in_hour = duration_in_hour
+        self.duration_in_hour_in_hour = duration_in_hour
 
     def get_distance(self) -> float:
+
         """calculate distance"""
 
         return self.action * self.LEN_STEP / self.M_IN_KM
 
     def get_mean_speed(self) -> float:
+
         """Getting avg speed"""
 
         return self.get_distance() / self.duration_in_hour
@@ -68,7 +71,7 @@ class Training:
 
         show_me = InfoMessage(training_type=self.__class__.__name__,
 
-                              duration_in_hour=self.duration_in_hour,
+                              duration_in_hour=self.duration_in_hour_in_hour,
 
                               distance=self.get_distance(),
 
@@ -93,7 +96,7 @@ class Running(Training):
         lost_weight = (self.CONST_RUN_1 * self.get_mean_speed() -
                        self.CONST_RUN_2) * self.weight
         cal = (lost_weight / self.M_IN_KM *
-               self.duration_in_hour * self.min_in_hour)
+               self.duration_in_hour_in_hour * self.min_in_hour)
 
         return cal
 
@@ -116,7 +119,7 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
 
-        time_in_min = self.duration_in_hour * self.min_in_hour
+        time_in_min = self.duration_in_hour_in_hour * self.min_in_hour
 
         speed = self.get_mean_speed()
 
@@ -148,7 +151,7 @@ class Swimming(Training):
         self.length_pool = length_pool
 
     def get_mean_speed(self) -> float:
-        time = self.duration_in_hour
+        time = self.duration_in_hour_in_hour
 
         return (self.length_pool * self.count_pool) / self.M_IN_KM / time
 
