@@ -50,7 +50,6 @@ class Training:
                            calories=self.get_spent_calories())
 
 
-
 class Running(Training):
     """Running CLASS"""
     training_code = 'RUN'
