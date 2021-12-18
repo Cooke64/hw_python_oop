@@ -5,8 +5,8 @@ from dataclasses import dataclass
 class InfoMessage:
     """Info message"""
 
-    def __init__(self, training_type: str, duration_in_hour: float, distance: float,
-
+    def __init__(self, training_type: str,
+                 duration_in_hour: float, distance: float,
                  speed: float, calories: float) -> None:
         self.training_type: str = training_type
 
@@ -37,13 +37,15 @@ class Training:
     """Main class of training"""
 
     LEN_STEP: float = 0.65
-
     M_IN_KM: int = 1000
 
-    def __init__(self, action: int, duration_in_hour: float, weight: float) -> None:
-        self.weight = weight
-
+    def __init__(self, action: int,
+                 duration_in_hour: float,
+                 weight: float
+                 ) -> None:
         self.action = action
+        self.duration = duration_in_hour
+        self.weight = weight
 
         self.duration_in_hour = duration_in_hour
 
@@ -59,7 +61,6 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Getting spent calories"""
-
         pass
 
     def show_training_info(self) -> InfoMessage:
@@ -91,7 +92,8 @@ class Running(Training):
 
         lost_weight = (self.CONST_RUN_1 * self.get_mean_speed() -
                        self.CONST_RUN_2) * self.weight
-        cal = lost_weight / self.M_IN_KM * self.duration_in_hour * self.min_in_hour
+        cal = (lost_weight / self.M_IN_KM *
+               self.duration_in_hour * self.min_in_hour)
 
         return cal
 
@@ -105,8 +107,6 @@ class SportsWalking(Training):
 
     min_in_hour: int = 60
 
-    # постоянные величины из формулы 
-    
     def __init__(self, action: int, duration_in_hour: float,
 
                  weight: float, height: float) -> None:
@@ -154,9 +154,8 @@ class Swimming(Training):
 
     def get_spent_calories(self) -> float:
 
-        total = (self.get_mean_speed() + self.CONST_SWIM_1) * self.CONST_SWIM_2 * self.weight
-
-        return total
+        total = (self.get_mean_speed() + self.CONST_SWIM_1)
+        return total * self.CONST_SWIM_2 * self.weight
 
 
 def read_package(workout_type: str, data: list) -> Training:
@@ -170,11 +169,11 @@ def read_package(workout_type: str, data: list) -> Training:
 
                       }
     try:
-        training_name: Training = training_codes[workout_type](*data)
+        train_name: Training = training_codes[workout_type](*data)
     except KeyError:
         print('Такой вид тренировки отсутствует, используйте только'
               'существующие виды тренировок')
-    return training_name
+    return train_name
 
 
 def main(training: Training) -> None:
